@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sample-service
+  template:
+    metadata:
+      labels:
+        app: sample-service
+    spec:
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              type: sample-service
+      containers:
+        - name: sample-service
+          image: # <---Image Repo--->
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sample-service
+spec:
+  ports:
+    - port: 3000
+      targetPort: 3000
+      name: sample-service
+  selector:
+    app: sample-service
